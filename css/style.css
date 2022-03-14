@@ -16,8 +16,6 @@
     
 }
 
-
-
 /*NavBar*/
 
 .navbar{
@@ -51,6 +49,10 @@
     display: flex;
 }
 
+.navbar__hover:hover{
+    background-color: #eee;
+}
+
 .navbar__searcher{
     padding: 5px 20px;
     width: 300px;
@@ -59,8 +61,6 @@
     font-size: 30px;
     padding: 5px 20px;
 }
-
-
 
 .navbar__lupa{
     padding: 5px 20px;

@@ -12,8 +12,8 @@
         <div class="navbar__container">
             <span class="navbar__span">Sukha Store</span>
             <div class='navbar__search'>
-                <input class='navbar__searcher' type="text" placeholder="Buscar productos.."></input>
-                <a class='navbar__lupa' href='#'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
+                <input class='navbar__searcher navbar__hover' type="text" placeholder="Buscar productos.."></input>
+                <a class='navbar__lupa navbar__hover' href='#'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
             </div>
         </div>
         <div class="navbar__container">
@@ -29,7 +29,7 @@
                     Hola
                 </span>
                 <a class='navbar__a' href='#'><img class="navbar__img" src="./media/index/account.png" alt="usuario"></a>
-                <a class='navbar__a' href='#'><img class="navbar__img" src="./media/index/cart.png" alt="carrito"></a>   
+                <a class='navbar__a' href='#' onclick="mostrarCarrito()"><img class="navbar__img" src="./media/index/cart.png" alt="carrito"></a>   
             </div>
         </div>
     </nav>
@@ -37,7 +37,6 @@
         <button onclick="mostrarProductos()">Mostrar Productos</button>
         <button onclick="comprar()">Comprar un producto</button>
         <button onclick="quitar()">Quitar un producto</button>
-        <button onclick="mostrarCarrito()">Mostrar carrito</button>
         <button onclick="descuento()">Aplicar descuento</button>
         <button onclick="impuesto()">Aplicar impuestos</button>
         <button onclick="limpiarProductos();">Limpiar carrito</button>
