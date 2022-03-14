@@ -1,6 +1,16 @@
 //Primera entrega del proyecto final
 /*
-Aclaraciones: la barra de busqueda todavia sigue en desarrollo, así como las funcionalidades
+Aclaraciones
+Siguen en desarrolo:
+ Sistema de login 
+ La barra de busqueda todavia sigue en desarrollo
+ La funcionalidad de quitar item del carrito
+ Filtrado por precio
+ El impuesto se aplicaria al finalizar compra pero se agregó un botón para testear la función
+ El sistema de cupones de descuento
+ EL html y css de la página
+ Responsividad de la página
+ Quiero acomodar el código de forma que cada clase tenga su propio archivo y se importe todo
 */
 
 //Definimos clases
@@ -156,11 +166,11 @@ class Usuario{
         this.nombre = prompt("Ingrese su nombre: ");
         //this.apellido = prompt("Ingrese su apellido: ");
         //this.usuario = prompt("Ingrese el usuario a usar: ");
-        this.contrasenia = prompt("Ingrese su contraseña: ");
+        //this.contrasenia = prompt("Ingrese su contraseña: ");
+        //comentado para ahorrar tiempo
     }
 
 }
-
 
 //funciones
 
@@ -169,7 +179,6 @@ function iniciarSesion(){
     usuario.crearUsuario();    
     document.getElementById("saludo").textContent = `Hola ${usuario.nombre}!`;
     return usuario;
-
 }
 
 function mostrarProductos(){
@@ -187,9 +196,12 @@ function comprar(){
     
     compra = prompt(`Ingrese el número de lo que desea comprar\n\n${stringItems}\n`);
     compra = parseInt(compra);
-    if (compra>= 0 && compra <= 6){
+    if (compra>= 0 && compra < 6){
         carrito.addItem(productosEnVenta[compra]);
         alert(`Se agregó:\n${productosEnVenta[compra].toString()}`)
+    }
+    else{
+        alert("Numeros entre 0 y 5")
     }
 
     cambiarPrecio();
@@ -212,7 +224,7 @@ function descuento(){
 }
 
 function impuesto(){
-    //ejemplo que el cupón ingresado es de 10%
+    //ejemplo que el impuesto es de 21%
     let impuestos = 21;
     carrito.aplicarImpuestos(impuestos);
     document.getElementById("precio__valor").textContent = `${carrito.precio}`;
@@ -223,8 +235,20 @@ function limpiarProductos(){
     cambiarPrecio();
 }
 
+function buscar(prenda){
+    const filtrado = productosEnVenta.filter((el) => el.tipo.includes(prenda))
+    const string =  `Mostrando solo ${prenda}\n${filtrado}`;    
+    alert(string);
+}
+
+function filtrarPrecio(){
+    //en proceso
+}
+
 //Simulacion
 
+
+//iniciamos sesión para crear un usuario y para luego crear un carrito
 let usuario = iniciarSesion();
 let carrito = new ShopCart(usuario);
 
@@ -238,6 +262,8 @@ let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela dep
 let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 44, 7590);
 
 let productosEnVenta = [remeraRoja, remeraNegra, buzoLiso, shortAdidas, pantalonDeportivo, zapatillas];
+
+//Creamos string de productos
 
 let = stringItems = `Listado de productos:\n`
 let i;
