@@ -154,11 +154,11 @@ class ShopCart{
 
 class Usuario{
     //El constructor se usará mas adelante
-    constructor(nombre, apellido, usuario, contrasenia){
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
+    constructor(){
+        this.nombre = "inicia sesion";
+        this.apellido = "";
+        this.usuario = "";
+        this.contrasenia = "";
     }
 
     crearUsuario(){
@@ -207,6 +207,28 @@ function comprar(){
     cambiarPrecio();
 }
 
+
+function agregarCarritoHTML(producto){
+    const containerCarrito = document.getElementById("containerCarrito")
+    
+    let productoHTML = document.createElement("div");
+    productoHTML.className = "carrito__producto";
+    productoHTML.innerHTML = `
+    <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
+    <span class="producto__titulo">${producto.nombre}</span>
+    <button id="quitarCarrito" class="producto__boton">Quitar del Carrito</button>
+
+    `;
+    containerCarrito.appendChild(productoHTML);
+
+}
+
+function comprarDesdeProducto(n){
+    carrito.addItem(productosEnVenta[n]);
+    agregarCarritoHTML(productosEnVenta[n]);
+    cambiarPrecio();
+}
+
 function quitar(){
     //en proceso
 }
@@ -215,12 +237,13 @@ function mostrarCarrito(){
     carrito.mostrarCarrito();
 }
 
-function descuento(){
-    let descuento = prompt("Ingrese cupón de descuento:");
-    //ejemplo que el cupón ingresado es de 10%
-    descuento = 10;
-    carrito.aplicarDescuento(descuento);
-    document.getElementById("precio__valor").textContent = `${carrito.precio}`;
+function descuento(text){
+    if (text == "CursoJS"){
+        carrito.aplicarDescuento(10);
+        document.getElementById("precio__valor").textContent = `${carrito.precio}`;
+    }else{
+        alert("Lea el código");
+    }
 }
 
 function impuesto(){
@@ -252,7 +275,7 @@ function filtrarPrecio(){
 //Simulacion
 
 //iniciamos sesión para crear un usuario y para luego crear un carrito
-let usuario = iniciarSesion();
+let usuario = new Usuario();
 let carrito = new ShopCart(usuario);
 
 //Creamos productos y los agregamos a una lista
@@ -280,17 +303,19 @@ productosEnVenta.forEach( (producto)=>{
 
 
 const containerProductos = document.getElementById("productosContainer");
+let idCompra = 0;
 for (const producto of productosEnVenta){
     let productoHTML = document.createElement("div");
     productoHTML.className = "producto";
     productoHTML.innerHTML = `
-    <img class="producto__img" src="./media/productos/${producto.img}" alt="${producto.img}">
+    <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
         <div class="producto__body">
             <span class="producto__titulo">${producto.nombre}</span>
             <p class="producto__descripcion">${producto.descripcion}</p>
-            <button class="producto__boton">Agregar al carrito</button>
+            <button id="comprar${idCompra}" class="producto__boton">Agregar al carrito</button>
         </div>
     `;
+    idCompra++;
     containerProductos.appendChild(productoHTML);
 }
 
@@ -314,22 +339,33 @@ botonPantalon.addEventListener("click", () => { buscar('pantalon')});
 const botonZapatillas = document.getElementById("buscarZapatillas");
 botonZapatillas.addEventListener("click", () => { buscar('zapatillas')});
 
-//botones main
+//botones 
 
-const botonMostrar = document.getElementById("mostrarProductos");
-botonMostrar.addEventListener("click", ()=> {mostrarProductos()});
-
-const botonComprar = document.getElementById("comprar");
-botonComprar.addEventListener("click", ()=> {comprar()});
-
-const botonQuitar = document.getElementById("quitar");
-botonQuitar.addEventListener("click", ()=> {quitar()});
-
+const codigoDescuento = document.getElementById("codigoDescuento");
 const botonDescuento = document.getElementById("descuento");
-botonDescuento.addEventListener("click", ()=> {descuento()});
-
-const botonImpuesto = document.getElementById("impuesto");
-botonImpuesto.addEventListener("click", ()=> {impuesto()});
+botonDescuento.addEventListener("click", ()=> {descuento(codigoDescuento.value)});
 
 const botonLimpiarCarrito = document.getElementById("limpiarProductos");
 botonLimpiarCarrito.addEventListener("click", ()=>{limpiarProductos()})
+
+//botones container
+
+const botonComprarDesdeContainer0 = document.getElementById("comprar0");
+botonComprarDesdeContainer0.addEventListener("click", ()=> {comprarDesdeProducto(0)});
+
+const botonComprarDesdeContainer1 = document.getElementById("comprar1");
+botonComprarDesdeContainer1.addEventListener("click", ()=> {comprarDesdeProducto(1)});
+
+const botonComprarDesdeContainer2 = document.getElementById("comprar2");
+botonComprarDesdeContainer2.addEventListener("click", ()=> {comprarDesdeProducto(2)});
+
+const botonComprarDesdeContainer3 = document.getElementById("comprar3");
+botonComprarDesdeContainer3.addEventListener("click", ()=> {comprarDesdeProducto(3)});
+
+const botonComprarDesdeContainer4 = document.getElementById("comprar4");
+botonComprarDesdeContainer4.addEventListener("click", ()=> {comprarDesdeProducto(4)});
+
+const botonComprarDesdeContainer5 = document.getElementById("comprar5");
+botonComprarDesdeContainer5.addEventListener("click", ()=> {comprarDesdeProducto(5)});
+
+//Codigo de descuento CursoJS

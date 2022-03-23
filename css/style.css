@@ -192,3 +192,66 @@
 .precio__text{
     font-size: 2rem;
 }
+
+/*carrito*/
+
+.carrito{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px 0;
+}
+
+.carrito__span{
+    display: flex;
+    align-items: center;
+    font-size: 60px;
+    font-weight: 600;
+    margin: 40px 0;
+}
+
+.carrito__container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.carrito__producto{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(151, 151, 151);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/*Descuento*/
+
+.descuento{
+    display: flex;
+    align-items: center;
+    height: 200px;
+    justify-content: center;
+    background-color: rgb(255, 60, 60);
+}
+
+.descuento label{
+    color: #fff;
+    font-size: 2rem;
+}
+
+.descuento input{
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin: 0 10px;
+}
+
+.descuento button{
+    background: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 20px;
+}

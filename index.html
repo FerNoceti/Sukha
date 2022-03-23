@@ -33,23 +33,23 @@
             </div>
         </div>
     </nav>
-    <section class="compra">
-        <button id="mostrarProductos">Mostrar Productos</button>
-        <button id="comprar">Comprar un producto</button>
-        <button id="quitar">Quitar un producto</button>
-        <button id="descuento">Aplicar descuento</button>
-        <button id="impuesto">Aplicar impuestos</button>
+    <section class="productos">
+        <span class="productos__titulo">Tarjetas de productos</span>
+        <div class="productos__container" id="productosContainer"></div>
+    </section>
+    <section class="carrito">
+        <span class="carrito__span">Carrito</span>
+        <div class="carrito__container" id="containerCarrito"></div>
         <button id="limpiarProductos">Limpiar carrito</button>
     </section>
     <section class="precio">
         <span class="precio__text">Su precio es de $</span>
         <span class="precio__text" id="precio__valor">0</span>
     </section>
-    <section class="productos">
-        <span class="productos__titulo">Tarjetas de ejemplo(usar los botones para simular comprar)</span>
-        <div class="productos__container" id="productosContainer">
-
-        </div>
+    <section class="descuento">
+        <label for="cuponDescuento">Ingrese un cupón de descuento</label>
+        <input id="codigoDescuento" name="cuponDescuento" type="text">
+        <button id="descuento">Aplicar descuento</button>
     </section>
     <script src="./js/index.js"></script>
 </body>
