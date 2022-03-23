@@ -245,8 +245,11 @@ function filtrarPrecio(){
     //en proceso
 }
 
-//Simulacion
+//main
 
+
+
+//Simulacion
 
 //iniciamos sesión para crear un usuario y para luego crear un carrito
 let usuario = iniciarSesion();
@@ -272,3 +275,61 @@ productosEnVenta.forEach( (producto)=>{
     i = productosEnVenta.indexOf(producto);;
     stringItems = `${stringItems}\nProducto ${i}: ${producto.toString()}\n`;
 });
+
+//Cargamos los productos en el html
+
+
+const containerProductos = document.getElementById("productosContainer");
+for (const producto of productosEnVenta){
+    let productoHTML = document.createElement("div");
+    productoHTML.className = "producto";
+    productoHTML.innerHTML = `
+    <img class="producto__img" src="./media/productos/${producto.img}" alt="${producto.img}">
+        <div class="producto__body">
+            <span class="producto__titulo">${producto.nombre}</span>
+            <p class="producto__descripcion">${producto.descripcion}</p>
+            <button class="producto__boton">Agregar al carrito</button>
+        </div>
+    `;
+    containerProductos.appendChild(productoHTML);
+}
+
+//botones navbar
+
+const botonCarrito = document.getElementById("mostrarCarrito");
+botonCarrito.addEventListener("click", () => { mostrarCarrito()});
+
+const botonRemera = document.getElementById("buscarRemera");
+botonRemera.addEventListener("click", () => { buscar('remera')});
+
+const botonBuzo = document.getElementById("buscarBuzo");
+botonBuzo.addEventListener("click", () => { buscar('buzo')});
+
+const botonShort = document.getElementById("buscarShort");
+botonShort.addEventListener("click", () => { buscar('short')});
+
+const botonPantalon = document.getElementById("buscarPantalon");
+botonPantalon.addEventListener("click", () => { buscar('pantalon')});
+
+const botonZapatillas = document.getElementById("buscarZapatillas");
+botonZapatillas.addEventListener("click", () => { buscar('zapatillas')});
+
+//botones main
+
+const botonMostrar = document.getElementById("mostrarProductos");
+botonMostrar.addEventListener("click", ()=> {mostrarProductos()});
+
+const botonComprar = document.getElementById("comprar");
+botonComprar.addEventListener("click", ()=> {comprar()});
+
+const botonQuitar = document.getElementById("quitar");
+botonQuitar.addEventListener("click", ()=> {quitar()});
+
+const botonDescuento = document.getElementById("descuento");
+botonDescuento.addEventListener("click", ()=> {descuento()});
+
+const botonImpuesto = document.getElementById("impuesto");
+botonImpuesto.addEventListener("click", ()=> {impuesto()});
+
+const botonLimpiarCarrito = document.getElementById("limpiarProductos");
+botonLimpiarCarrito.addEventListener("click", ()=>{limpiarProductos()})
