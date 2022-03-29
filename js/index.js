@@ -180,7 +180,7 @@ botonLimpiarCarrito.addEventListener("click", ()=>{
 //Creamos productos y los agregamos a una lista
 let remeraRoja = new Producto(`Remera Roja`, `Remera Roja de algodón`, 1, 1000);
 let remeraNegra = new Producto(`Remera Negra`, `Remera Negra de tela deportiva`, 1, 950);
-let buzoLiso = new Producto(`Buzo simple`, `Buzo sin estampado 100% algodón`, 2, 650, 30);
+let buzoLiso = new Producto(`Buzo Simple`, `Buzo sin estampado 100% algodón`, 2, 650, 30);
 let shortAdidas = new Producto(`Short Adidas`, `Short de la selección Argentina`, 3, 599);
 let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela deportiva`, 4, 750);
 let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 7590);
