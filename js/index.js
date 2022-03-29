@@ -1,371 +1,223 @@
-//Primera entrega del proyecto final
-/*
-Aclaraciones
-Siguen en desarrolo:
- Sistema de login 
- La barra de busqueda todavia sigue en desarrollo
- La funcionalidad de quitar item del carrito
- Filtrado por precio
- El impuesto se aplicaria al finalizar compra pero se agregó un botón para testear la función
- El sistema de cupones de descuento
- EL html y css de la página
- Responsividad de la página
- Quiero acomodar el código de forma que cada clase tenga su propio archivo y se importe todo
-*/
+//importamos clases
+import { Producto } from "./Producto.js";
 
-//Definimos clases
+//Carrito y Local Storage
 
-//Producto
+const guardarLocal = (clave, valor) =>{ localStorage.setItem(clave, valor) }
 
-class Producto{
-    
-    //Constructor
-    
-    constructor(nombre, descripcion, tipo, talle, precio){
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.tipo = this.asignarTipo(tipo);
-        this.talle = this.asignarTalle(this.asignarTipo(tipo), talle);
-        this.precio = precio;
-    }
+function constructorCarrito() {
+    let carrito = []
 
-    //Métodos
-
-    precioConImpuestos(impuestos){
-        return this.precio + this.precio * impuestos / 100;
-    }
-
-    precioConDescuento(descuento){
-        return this.precio - this.precio * descuento / 100;
-    }
-
-    asignarTipo(n){
-        switch (n) {
-            case 1:
-              return `remera`;
-            case 2:
-                return `buzo`;
-            case 3:
-                return `short`;
-            case 4:
-                return `pantalon`;
-            case 5:
-                return `zapatillas`;
-          }
-    }
-
-    asignarTalle(tipo, talle){
-        if (tipo != `zapatillas`){
-            switch (talle) {
-                case 1:
-                  return `S`;
-                case 2:
-                    return `M`;
-                case 3:
-                    return `L`;
-                case 4:
-                    return `XL`;
-            }
+    if(!localStorage.getItem("carrito")){
+        guardarLocal("carrito", "[]")
+    }else{
+        const almacenados = JSON.parse(localStorage.getItem("carrito"));
+        let precioLS = 0;
+        for (const producto of almacenados){
+            carrito.push(new Producto(producto));
+            cargarCarritoLS(producto);
+            contadorCarritoHTML();
+            precioLS += producto.precio;
         }
-        else {
-            return talle;
-        }
-    }
-    
-    //ToString
-
-    toString(){
-        return `Nombre: ${this.nombre} | Descripción: ${this.descripcion} | Tipo: ${this.tipo} | Talle: ${this.talle} | Precio: $${this.precio}`;
+        document.getElementById("precio__valor").textContent = `${precioLS}`;
     }
 
-    toStringConImpuestos(impuestos){
-        return `Impuestos: %${impuestos} | Precio con Impuestos: ${this.precioConImpuestos(impuestos)}`
-    }
-
-    toStringConDescuento(descuento){
-        return `Descuento: %${descuento} | Precio con descuento: ${this.precioConDescuento(descuento)}`
-    }
-
+    return carrito
 }
 
-//ShopCart (Es una colección de objetos Producto)
-
-class ShopCart{
-
-    constructor(usuario){
-        this.productos = [];
-        this.precio = 0;
-        this.usuario = usuario;
-        this.fecha = new Date();
-    }
-
-    limpiarProductos(){
-        this.productos = [];
-    }
-    
-    mostrarCarrito(){
-        this.calcularPrecio();
-        let string = `Precio del carrito: $${this.precio}\n\n`;
-
-        if(this.productos.length == 0){
-            alert("No hay elementos en el carrito");
-        }
-        else {
-            this.productos.forEach( (producto) => {
-                string += `\n${producto.toString()}\n`;
-            })
-            alert(string);
-        }
-    }
-
-    mostrarNombres(){
-        const listaNombres = this.productos.map(producto => producto.nombre)
-        alert(listaNombres);
-    }
-    
-    addItem(item){
-        this.productos.push(item);
-    }
-
-    quitarItem(item){
-        //desarrolar
-    }
-
-    calcularPrecio(){
-        const total = this.productos.reduce((precioTotal, producto) => precioTotal + producto.precio, 0);
-        this.precio = total;
-    }
-    
-    aplicarDescuento(descuento){
-        const total = this.productos.reduce((precioTotal, producto) => precioTotal + producto.precioConDescuento(descuento), 0);
-        this.precio = total;
-    }
-    
-    
-    aplicarImpuestos(impuestos){
-        const total = this.productos.reduce((precioTotal, producto) => precioTotal + producto.precioConImpuestos(impuestos), 0);
-        this.precio = total;
-    }
-    
-
-}
-
-//Usuario
-
-class Usuario{
-    //El constructor se usará mas adelante
-    constructor(){
-        this.nombre = "inicia sesion";
-        this.apellido = "";
-        this.usuario = "";
-        this.contrasenia = "";
-    }
-
-    crearUsuario(){
-        alert("Creación de usuario");
-        this.nombre = prompt("Ingrese su nombre: ");
-        //this.apellido = prompt("Ingrese su apellido: ");
-        //this.usuario = prompt("Ingrese el usuario a usar: ");
-        //this.contrasenia = prompt("Ingrese su contraseña: ");
-        //comentado para ahorrar tiempo
-    }
-
-}
-
-//funciones
-
-function iniciarSesion(){
-    let usuario = new Usuario;
-    usuario.crearUsuario();    
-    document.getElementById("saludo").textContent = `Hola ${usuario.nombre}!`;
-    return usuario;
-}
-
-function mostrarProductos(){
-    alert(stringItems);
-}
-
-function cambiarPrecio(){
-    carrito.calcularPrecio();
-    console.log(carrito.precio);
-    document.getElementById("precio__valor").textContent = `${carrito.precio}`;
-}
-
-function comprar(){
-    let compra;
-    
-    compra = prompt(`Ingrese el número de lo que desea comprar\n\n${stringItems}\n`);
-    compra = parseInt(compra);
-    if (compra>= 0 && compra < 6){
-        carrito.addItem(productosEnVenta[compra]);
-        alert(`Se agregó:\n${productosEnVenta[compra].toString()}`)
-    }
-    else{
-        alert("Numeros entre 0 y 5")
-    }
-
-    cambiarPrecio();
-}
-
-
-function agregarCarritoHTML(producto){
-    const containerCarrito = document.getElementById("containerCarrito")
-    
+function cargarCarritoLS(producto){
+    const containerCarrito = document.getElementById("containerCarrito");
     let productoHTML = document.createElement("div");
     productoHTML.className = "carrito__producto";
     productoHTML.innerHTML = `
-    <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
-    <span class="producto__titulo">${producto.nombre}</span>
-    <button id="quitarCarrito" class="producto__boton">Quitar del Carrito</button>
+    <span class="carrito__titulo">${producto.nombre}</span>
+    <span class="carrito__precio">$${producto.precio}</span>
+    <span class="carrito__talle">Talle: ${producto.talle}</span>
+    `;
+    containerCarrito.appendChild(productoHTML);
+}
 
+function guardarCarritoLS(){
+    guardarLocal('carrito', JSON.stringify(carrito));
+}
+
+function obtenerTalle(n){
+    let talle = document.getElementById(`talleProducto${n}`).value;
+    if (talle == "Elegí tu talle"){
+        talle = false;
+    }else{
+        return talle;
+    }
+}
+
+function addItemCarrito(producto, talleP){
+    carrito.push({nombre: producto.nombre, descripcion: producto.descripcion, tipo: producto.tipo, precio: producto.precio, talle: talleP})
+}
+
+function calcularPrecio(){
+    const total = carrito.reduce((precioTotal, producto) => precioTotal + producto.precio, 0);
+    return total;
+}
+
+let carrito = constructorCarrito();
+
+//Mostrar u ocultar carrito
+
+const botonCarrito = document.getElementById("mostrarCarrito");
+botonCarrito.addEventListener("click", () => {
+const cart = document.getElementById("cart");
+
+if (cart.classList == "carrito--hide"){
+    cart.classList.remove("carrito--hide");
+    cart.classList.add("carrito");
+    return
+}
+else{
+    cart.classList.remove("carrito");
+    cart.classList.add("carrito--hide");    
+}
+});
+
+//DOM
+
+function agregarCarritoHTML(producto, talle){
+    const containerCarrito = document.getElementById("containerCarrito");
+    let productoHTML = document.createElement("div");
+    productoHTML.className = "carrito__producto";
+    productoHTML.innerHTML = `
+    <span class="carrito__titulo">${producto.nombre}</span>
+    <span class="carrito__precio">$${producto.precio}</span>
+    <span class="carrito__talle">Talle: ${talle}</span>
     `;
     containerCarrito.appendChild(productoHTML);
 
 }
 
-function comprarDesdeProducto(n){
-    carrito.addItem(productosEnVenta[n]);
-    agregarCarritoHTML(productosEnVenta[n]);
-    cambiarPrecio();
+function contadorCarritoHTML(){
+    let contador = document.getElementById("contadorCarrito");
+    contador.textContent = parseInt(contador.textContent) + 1;
 }
 
-function quitar(){
-    //en proceso
-}
-
-function mostrarCarrito(){
-    carrito.mostrarCarrito();
-}
-
-function descuento(text){
-    if (text == "CursoJS"){
-        carrito.aplicarDescuento(10);
-        document.getElementById("precio__valor").textContent = `${carrito.precio}`;
-    }else{
-        alert("Lea el código");
+function limpiarCarritoHTML(){
+    const containerCarrito = document.getElementById("containerCarrito")
+    while (containerCarrito.firstChild) {
+        containerCarrito.removeChild(containerCarrito.firstChild);
     }
 }
 
-function impuesto(){
-    //ejemplo que el impuesto es de 21%
-    let impuestos = 21;
-    carrito.aplicarImpuestos(impuestos);
-    document.getElementById("precio__valor").textContent = `${carrito.precio}`;
+function cargarProductosHTML(){
+    const containerProductos = document.getElementById("productosContainer");
+    let idCompra = 0;
+    for (const producto of productosEnVenta){
+        let productoHTML = document.createElement("div");
+        productoHTML.className = "producto";
+        productoHTML.innerHTML = `
+        <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
+            <div class="producto__body">
+                <span class="producto__titulo">${producto.nombre}</span>
+                <p class="producto__descripcion">
+                Precio: $${producto.precio}
+                <br/>
+                ${producto.descripcion}
+                <br/>
+                <select id="talleProducto${idCompra}" class="producto__talles" name="talles" required>
+                    <option selected hidden>Elegí tu talle</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                </p>
+
+                <button id="comprar${idCompra}" class="producto__boton">Agregar al carrito</button>
+            </div>
+        `;
+        containerProductos.appendChild(productoHTML);
+        idCompra++;
+    }
 }
 
-function limpiarProductos(){
-    carrito.limpiarProductos();
-    cambiarPrecio();
+function cambiarPrecioHTML(){
+    let precio = calcularPrecio();
+    document.getElementById("precio__valor").textContent = `${precio}`;
 }
 
-function buscar(prenda){
-    const filtrado = productosEnVenta.filter((el) => el.tipo.includes(prenda))
-    const string =  `Mostrando solo ${prenda}\n${filtrado}`;    
-    alert(string);
+//Events
+
+function agregarEventosProductosHTML(){
+for (let i = 0; i < productosEnVenta.length; i++){
+    document.getElementById(`comprar${i}`).addEventListener("click", ()=> {
+    if (obtenerTalle(i)){
+        addItemCarrito(productosEnVenta[i], obtenerTalle(i));
+        contadorCarritoHTML()
+        cambiarPrecioHTML();
+        agregarCarritoHTML(productosEnVenta[i], obtenerTalle(i));
+        guardarCarritoLS();
+    }
+    else{
+        Swal.fire({
+            title: 'Error!',
+            text: 'Debes elegir un talle!',
+            icon: 'error',
+            confirmButtonText: 'Entendido'
+          })
+    }
+    });
+}
 }
 
-function filtrarPrecio(){
-    //en proceso
-}
+//limpiar carrito
 
-//main
-
-
-
-//Simulacion
-
-//iniciamos sesión para crear un usuario y para luego crear un carrito
-let usuario = new Usuario();
-let carrito = new ShopCart(usuario);
+const botonLimpiarCarrito = document.getElementById("limpiarProductos");
+botonLimpiarCarrito.addEventListener("click", ()=>{
+    limpiarCarritoHTML();
+    carrito = [];
+    cambiarPrecioHTML();
+    document.getElementById("contadorCarrito").textContent = 0;
+    guardarCarritoLS();
+})
 
 //Creamos productos y los agregamos a una lista
-
-let remeraRoja = new Producto(`Remera Roja`, `Remera Roja de algodón`, 1, 2, 1000);
-let remeraNegra = new Producto(`Remera Negra`, `Remera Negra de tela deportiva`, 1, 3, 950);
-let buzoLiso = new Producto(`Buzo simple`, `Buzo sin estampado 100% algodón`, 2, 3, 650);
-let shortAdidas = new Producto(`Short Adidas`, `Short de la selección Argentina`, 3, 2, 599);
-let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela deportiva`, 4, 4, 750);
-let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 44, 7590);
+let remeraRoja = new Producto(`Remera Roja`, `Remera Roja de algodón`, 1, 1000);
+let remeraNegra = new Producto(`Remera Negra`, `Remera Negra de tela deportiva`, 1, 950);
+let buzoLiso = new Producto(`Buzo simple`, `Buzo sin estampado 100% algodón`, 2, 650, 30);
+let shortAdidas = new Producto(`Short Adidas`, `Short de la selección Argentina`, 3, 599);
+let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela deportiva`, 4, 750);
+let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 7590);
 
 let productosEnVenta = [remeraRoja, remeraNegra, buzoLiso, shortAdidas, pantalonDeportivo, zapatillas];
 
-//Creamos string de productos
-
-let = stringItems = `Listado de productos:\n`
-let i;
-
-productosEnVenta.forEach( (producto)=>{
-    i = productosEnVenta.indexOf(producto);;
-    stringItems = `${stringItems}\nProducto ${i}: ${producto.toString()}\n`;
-});
-
 //Cargamos los productos en el html
 
+cargarProductosHTML();
 
-const containerProductos = document.getElementById("productosContainer");
-let idCompra = 0;
-for (const producto of productosEnVenta){
-    let productoHTML = document.createElement("div");
-    productoHTML.className = "producto";
-    productoHTML.innerHTML = `
-    <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
-        <div class="producto__body">
-            <span class="producto__titulo">${producto.nombre}</span>
-            <p class="producto__descripcion">${producto.descripcion}</p>
-            <button id="comprar${idCompra}" class="producto__boton">Agregar al carrito</button>
-        </div>
-    `;
-    idCompra++;
-    containerProductos.appendChild(productoHTML);
-}
+//Agregamos los eventos en productos
 
-//botones navbar
+agregarEventosProductosHTML();
 
-const botonCarrito = document.getElementById("mostrarCarrito");
-botonCarrito.addEventListener("click", () => { mostrarCarrito()});
+//Comprar
 
-const botonRemera = document.getElementById("buscarRemera");
-botonRemera.addEventListener("click", () => { buscar('remera')});
+const botonComprar = document.getElementById("comprar");
+botonComprar.addEventListener("click", () =>{
+    if(carrito.length == 0){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No agregaste nada al carrito!',
+          })
+    }
+    else{
+        Swal.fire(
+            'Compra Exitosa!',
+            'Gracias por confiar en nosotros!',
+            'success'
+          );
+          limpiarCarritoHTML();
+          carrito = [];
+          cambiarPrecioHTML();
+          document.getElementById("contadorCarrito").textContent = 0;
+          guardarCarritoLS();
+    }
+})
 
-const botonBuzo = document.getElementById("buscarBuzo");
-botonBuzo.addEventListener("click", () => { buscar('buzo')});
-
-const botonShort = document.getElementById("buscarShort");
-botonShort.addEventListener("click", () => { buscar('short')});
-
-const botonPantalon = document.getElementById("buscarPantalon");
-botonPantalon.addEventListener("click", () => { buscar('pantalon')});
-
-const botonZapatillas = document.getElementById("buscarZapatillas");
-botonZapatillas.addEventListener("click", () => { buscar('zapatillas')});
-
-//botones 
-
-const codigoDescuento = document.getElementById("codigoDescuento");
-const botonDescuento = document.getElementById("descuento");
-botonDescuento.addEventListener("click", ()=> {descuento(codigoDescuento.value)});
-
-const botonLimpiarCarrito = document.getElementById("limpiarProductos");
-botonLimpiarCarrito.addEventListener("click", ()=>{limpiarProductos()})
-
-//botones container
-
-const botonComprarDesdeContainer0 = document.getElementById("comprar0");
-botonComprarDesdeContainer0.addEventListener("click", ()=> {comprarDesdeProducto(0)});
-
-const botonComprarDesdeContainer1 = document.getElementById("comprar1");
-botonComprarDesdeContainer1.addEventListener("click", ()=> {comprarDesdeProducto(1)});
-
-const botonComprarDesdeContainer2 = document.getElementById("comprar2");
-botonComprarDesdeContainer2.addEventListener("click", ()=> {comprarDesdeProducto(2)});
-
-const botonComprarDesdeContainer3 = document.getElementById("comprar3");
-botonComprarDesdeContainer3.addEventListener("click", ()=> {comprarDesdeProducto(3)});
-
-const botonComprarDesdeContainer4 = document.getElementById("comprar4");
-botonComprarDesdeContainer4.addEventListener("click", ()=> {comprarDesdeProducto(4)});
-
-const botonComprarDesdeContainer5 = document.getElementById("comprar5");
-botonComprarDesdeContainer5.addEventListener("click", ()=> {comprarDesdeProducto(5)});
-
-//Codigo de descuento CursoJS
+//Filtrar por tipos y buscador a terminar

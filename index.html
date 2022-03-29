@@ -12,8 +12,8 @@
         <div class="navbar__container">
             <span class="navbar__span">Sukha Store</span>
             <div class='navbar__search'>
-                <input class='navbar__searcher navbar__hover' type="text" placeholder="Buscar productos.."></input>
-                <a class='navbar__lupa navbar__hover' href='#'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
+                <input class='navbar__searcher' type="text" placeholder="Buscar productos.."></input>
+                <a class='navbar__lupa' href='#'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
             </div>
         </div>
         <div class="navbar__container">
@@ -25,32 +25,26 @@
                 <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarZapatillas">Zapatillas</a></li>
             </ul>
             <div class='navbar__icons'>
-                <span class="navbar__saludo" id="saludo">
-                    Hola
-                </span>
-                <a class='navbar__a' href='#'><img class="navbar__img" src="./media/index/account.png" alt="usuario"></a>
-                <a class='navbar__a' href='#' id="mostrarCarrito"><img class="navbar__img" src="./media/index/cart.png" alt="carrito"></a>   
+                <a class='navbar__a' id="mostrarCarrito"><img class="navbar__img" src="./media/index/cart.png" alt="carrito"></a>
+                <span class="navbar__contador" id="contadorCarrito">0</span>
+                <div class="carrito--hide" id="cart">
+                    <span class="carrito__span">Carrito</span>
+                    <div class="carrito__container" id="containerCarrito"></div>
+                    <button class="carrito__boton" id="limpiarProductos">Limpiar carrito</button>
+                    <div class="precio">
+                        <span class="precio__text">Precio final $</span>
+                        <span class="precio__text" id="precio__valor">0</span>
+                    </div>
+                    <button class="carrito__boton" id="comprar">Comprar</button>
+                </div>
             </div>
         </div>
     </nav>
     <section class="productos">
-        <span class="productos__titulo">Tarjetas de productos</span>
+        <span class="productos__titulo" id="productosTitulo">Todos nuestros productos</span>
         <div class="productos__container" id="productosContainer"></div>
     </section>
-    <section class="carrito">
-        <span class="carrito__span">Carrito</span>
-        <div class="carrito__container" id="containerCarrito"></div>
-        <button id="limpiarProductos">Limpiar carrito</button>
-    </section>
-    <section class="precio">
-        <span class="precio__text">Su precio es de $</span>
-        <span class="precio__text" id="precio__valor">0</span>
-    </section>
-    <section class="descuento">
-        <label for="cuponDescuento">Ingrese un cupón de descuento</label>
-        <input id="codigoDescuento" name="cuponDescuento" type="text">
-        <button id="descuento">Aplicar descuento</button>
-    </section>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.js" type="module"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
