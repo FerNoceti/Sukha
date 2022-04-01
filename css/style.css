@@ -319,3 +319,15 @@ body::-webkit-scrollbar-track {
 .carrito__boton:active{
     transform: scale(0.95);
 }
+
+/*Mobile view*/
+
+@media (max-width: 768px) {
+    .navbar{
+        height: fit-content;
+    }
+
+    .navbar__container{
+        flex-direction: column;
+    }
+  }

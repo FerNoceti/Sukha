@@ -43,11 +43,7 @@ function guardarCarritoLS(){
 
 function obtenerTalle(n){
     let talle = document.getElementById(`talleProducto${n}`).value;
-    if (talle == "Elegí tu talle"){
-        talle = false;
-    }else{
-        return talle;
-    }
+    talle == "Elegí tu talle" ? talle = false : talle
 }
 
 function addItemCarrito(producto, talleP){
