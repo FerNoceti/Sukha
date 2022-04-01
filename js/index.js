@@ -17,7 +17,8 @@ function constructorCarrito() {
             carrito.push(new Producto(producto));
             cargarCarritoLS(producto);
             contadorCarritoHTML();
-            precioLS += producto.precio;
+            let precio = producto?.precio || 100;
+            precioLS += precio;
         }
         document.getElementById("precio__valor").textContent = `${precioLS}`;
     }
@@ -30,9 +31,9 @@ function cargarCarritoLS(producto){
     let productoHTML = document.createElement("div");
     productoHTML.className = "carrito__producto";
     productoHTML.innerHTML = `
-    <span class="carrito__titulo">${producto.nombre}</span>
-    <span class="carrito__precio">$${producto.precio}</span>
-    <span class="carrito__talle">Talle: ${producto.talle}</span>
+    <span class="carrito__titulo">${producto?.nombre || "Sin definir"}</span>
+    <span class="carrito__precio">$${producto?.precio || "Sin definir"}</span>
+    <span class="carrito__talle">Talle: ${producto?.talle || "Sin definir"}</span>
     `;
     containerCarrito.appendChild(productoHTML);
 }
@@ -42,17 +43,20 @@ function guardarCarritoLS(){
 }
 
 function obtenerTalle(n){
-    let talle = document.getElementById(`talleProducto${n}`).value;
-    talle == "Elegí tu talle" ? talle = false : talle
+    let talle = document.getElementById(`talleProducto${n}`)?.value || "Único";
+    if (talle == "Elegí tu talle"){
+        talle = false;
+    }else{
+        return talle;
+    }
 }
 
 function addItemCarrito(producto, talleP){
-    carrito.push({nombre: producto.nombre, descripcion: producto.descripcion, tipo: producto.tipo, precio: producto.precio, talle: talleP})
+    carrito.push({nombre: producto?.nombre || "Sin definir", descripcion: producto?.descripcion || "Sin definir", tipo: producto?.tipo || "Sin definir", precio: producto?.precio || "Sin definir", talle: talleP})
 }
 
 function calcularPrecio(){
-    const total = carrito.reduce((precioTotal, producto) => precioTotal + producto.precio, 0);
-    return total;
+    return carrito.reduce((precioTotal, producto) => precioTotal + producto?.precio || 1000, 0);
 }
 
 let carrito = constructorCarrito();
@@ -77,12 +81,13 @@ else{
 //DOM
 
 function agregarCarritoHTML(producto, talle){
+    const {nombre, precio} = producto;
     const containerCarrito = document.getElementById("containerCarrito");
     let productoHTML = document.createElement("div");
     productoHTML.className = "carrito__producto";
     productoHTML.innerHTML = `
-    <span class="carrito__titulo">${producto.nombre}</span>
-    <span class="carrito__precio">$${producto.precio}</span>
+    <span class="carrito__titulo">${nombre}</span>
+    <span class="carrito__precio">$${precio}</span>
     <span class="carrito__talle">Talle: ${talle}</span>
     `;
     containerCarrito.appendChild(productoHTML);
@@ -108,13 +113,13 @@ function cargarProductosHTML(){
         let productoHTML = document.createElement("div");
         productoHTML.className = "producto";
         productoHTML.innerHTML = `
-        <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
+        <img class="producto__img" src="./media/productos/${producto?.nombre || "Sin definir"}.png" alt="${producto?.img || "Sin definir"}">
             <div class="producto__body">
-                <span class="producto__titulo">${producto.nombre}</span>
+                <span class="producto__titulo">${producto.nombre || "Sin definir"}</span>
                 <p class="producto__descripcion">
-                Precio: $${producto.precio}
+                Precio: $${producto?.precio || "Sin definir"}
                 <br/>
-                ${producto.descripcion}
+                ${producto?.descripcion || "Sin definir"}
                 <br/>
                 <select id="talleProducto${idCompra}" class="producto__talles" name="talles" required>
                     <option selected hidden>Elegí tu talle</option>
@@ -180,8 +185,11 @@ let buzoLiso = new Producto(`Buzo Simple`, `Buzo sin estampado 100% algodón`, 2
 let shortAdidas = new Producto(`Short Adidas`, `Short de la selección Argentina`, 3, 599);
 let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela deportiva`, 4, 750);
 let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 7590);
+let producto = new Producto();
 
-let productosEnVenta = [remeraRoja, remeraNegra, buzoLiso, shortAdidas, pantalonDeportivo, zapatillas];
+let productosEnVenta = [remeraRoja, remeraNegra, buzoLiso, shortAdidas, pantalonDeportivo, zapatillas, producto];
+
+console.log(...productosEnVenta);
 
 //Cargamos los productos en el html
 
