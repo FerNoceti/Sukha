@@ -153,6 +153,7 @@ for (let i = 0; i < productosEnVenta.length; i++){
         cambiarPrecioHTML();
         agregarCarritoHTML(productosEnVenta[i], obtenerTalle(i));
         guardarCarritoLS();
+        mensaje("Producto agregado")
     }
     else{
         Swal.fire({
@@ -175,6 +176,7 @@ botonLimpiarCarrito.addEventListener("click", ()=>{
     cambiarPrecioHTML();
     document.getElementById("contadorCarrito").textContent = 0;
     guardarCarritoLS();
+    mensaje("Se eliminaron los productos de su carro")
 })
 
 //Creamos productos y los agregamos a una lista
@@ -219,5 +221,23 @@ botonComprar.addEventListener("click", () =>{
           guardarCarritoLS();
     }
 })
+
+  function mensaje(texto){
+    Toastify({
+        text: texto,
+        className: "info",
+        duration: 2000,
+        stopOnFocus: true,
+        style: {
+          background: "#B388EB",
+          color: "black",
+          marginRight: "150px",
+          marginTop: "70px",
+          padding: "10px 20px",
+          borderRadius: "20px"
+        }
+      }).showToast();
+  }
+
 
 //Filtrar por tipos y buscador a terminar

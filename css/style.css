@@ -253,6 +253,7 @@ body::-webkit-scrollbar-track {
     flex-direction: column;
     margin: 30px 0;
     width: 350px;
+    min-height: 500px;
     animation: all .5s;
     overflow-y: scroll;
     height: fit-content;
