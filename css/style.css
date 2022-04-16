@@ -1,13 +1,3 @@
-/* CSS HEX 
-
-    --paradise-pink: #ef476fff;
-    --orange-yellow-crayola: #ffd166ff;
-    --caribbean-green: #06d6a0ff;
-    --blue-ncs: #118ab2ff;
-    --midnight-green-eagle-green: #073b4cff;
-*/
-
-
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +5,6 @@
     font-family: 'Source Sans Pro', sans-serif;
     text-decoration: none;
     border: none;
-    
 }
 
 body::-webkit-scrollbar{
@@ -29,8 +18,11 @@ body::-webkit-scrollbar-thumb{
 
 body::-webkit-scrollbar-track {
     background: #c0cbff;
-  }
+}
 
+html {
+    scroll-behavior: smooth;
+}
 /*NavBar*/
 
 .navbar{
@@ -83,6 +75,7 @@ body::-webkit-scrollbar-track {
 
 .navbar__search:hover{
     background-color: #eee;
+    cursor: pointer;
 }
 
 .navbar__searcher{
@@ -147,6 +140,11 @@ body::-webkit-scrollbar-track {
     background-color: #72DDF7;
     color: #000;
     margin-top: 140px;
+    min-height: 100vh;
+}
+
+.producto__body{
+    width: 300px;
 }
 
 .productos__titulo{
@@ -179,15 +177,22 @@ body::-webkit-scrollbar-track {
     border-radius: 20px;
 }
 
+.producto__imgContainer{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .producto__img{
-    width: 200px;
+    width: 100%;
     margin: 20px;
-    min-height: 200px;
 }
 
 .producto__titulo{
     font-size: 30px;
     margin: 10px 0;
+    width: 100%;
 }
 
 .producto__descripcion{
@@ -266,11 +271,11 @@ body::-webkit-scrollbar-track {
     from {
         margin-right: -200px;
     }
-  
+
     to {
-     margin-right: 0%;
-   }
-  }
+        margin-right: 0%;
+    }
+}
 
 .carrito::-webkit-scrollbar{
     width: 7px;
@@ -319,4 +324,53 @@ body::-webkit-scrollbar-track {
 
 .carrito__boton:active{
     transform: scale(0.95);
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #B388EB;
+    color: #000;
+    height: 100px;
+}
+
+.footer__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.footer__p{
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.footer__title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bolder;
+    margin: 0 10px;
+}
+
+.foooter__img{
+    width: 30px;
+    height: 30px;
+}
+
+.foooter__a{
+    text-decoration: none;
+    color: #000;
+}
+
+/*cursor*/
+
+.navbar__span:hover, .navbar__categoria a:hover, .navbar__img:hover, .producto__talles:hover, .producto__boton:hover, .carrito__boton:hover{
+    cursor: pointer;
 }

@@ -11,19 +11,19 @@
 <body>
     <nav class="navbar">
         <div class="navbar__container">
-            <span class="navbar__span">Sukha Store</span>
+            <span class="navbar__span" id="inicio">Sukha Store</span>
             <div class='navbar__search'>
-                <input class='navbar__searcher' type="text" placeholder="Buscar productos.."></input>
-                <a class='navbar__lupa' href='#'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
+                <input id="search" class='navbar__searcher' type="text" placeholder="Buscar productos.."></input>
+                <a id="lupa" class='navbar__lupa'><img class="lupa__img" src="./media/index/lupa.png" alt="buscar"></a>
             </div>
         </div>
         <div class="navbar__container">
             <ul class='navbar__categorias'>
-                <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarRemera">Remeras</a></li>
-                <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarBuzo">Buzos</a></li>
-                <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarShort">Shorts</a></li>
-                <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarPantalon">Pantalones</a></li>
-                <li class='navbar__categoria'><a href='#' class='navbar__a' id="buscarZapatillas">Zapatillas</a></li>
+                <li class='navbar__categoria'><a id="remeras" class='navbar__a' id="buscarRemera">Remeras</a></li>
+                <li class='navbar__categoria'><a id="buzos" class='navbar__a' id="buscarBuzo">Buzos</a></li>
+                <li class='navbar__categoria'><a id="shorts" class='navbar__a' id="buscarShort">Shorts</a></li>
+                <li class='navbar__categoria'><a id="pantalones" class='navbar__a' id="buscarPantalon">Pantalones</a></li>
+                <li class='navbar__categoria'><a id="zapatillas" class='navbar__a' id="buscarZapatillas">Zapatillas</a></li>
             </ul>
             <div class='navbar__icons'>
                 <a class='navbar__a' id="mostrarCarrito"><img class="navbar__img" src="./media/index/cart.png" alt="carrito"></a>
@@ -45,6 +45,19 @@
         <span class="productos__titulo" id="productosTitulo">Todos nuestros productos</span>
         <div class="productos__container" id="productosContainer"></div>
     </section>
+    <footer class="footer">
+        <div class="footer__container">
+            <p class="footer__p">
+                Página diseñada por Fernando Noceti para el curso de Javascript dictado por CoderHouse
+            </p>
+        </div>
+        <div class="footer__container">
+            <span class="footer__title">Mi github</span>
+            <a class="footer__a" href="https://github.com/FerNoceti" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" alt="github logo" class="foooter__img">
+            </a>
+        </div>
+    </footer>
     <script src="./js/index.js" type="module"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

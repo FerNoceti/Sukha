@@ -1,12 +1,12 @@
 class Producto{
-    
+
     //Constructor
-    
-    constructor(nombre, descripcion, tipo, precio){
+
+    constructor(id, nombre, precio, imagen){
+        this.id = id;
         this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.tipo = this.asignarTipo(tipo);
-        this.precio = precio; 
+        this.precio = precio;
+        this.imagen = imagen;
         this.talle = "Sin Definir";
     }
 
@@ -19,21 +19,6 @@ class Producto{
     precioConDescuento(descuento){
         return this.precio - this.precio * descuento / 100;
     }
-
-    asignarTipo(n){
-        switch (n) {
-            case 1:
-              return `remera`;
-            case 2:
-                return `buzo`;
-            case 3:
-                return `short`;
-            case 4:
-                return `pantalon`;
-            case 5:
-                return `zapatillas`;
-          }
-    }
-};
+}
 
 export{Producto};
