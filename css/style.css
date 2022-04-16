@@ -7,11 +7,11 @@
     border: none;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 7px;
 }
 
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
     background-color: #B388EB;
     border-radius: 10px;
 }
@@ -23,9 +23,10 @@ body::-webkit-scrollbar-track {
 html {
     scroll-behavior: smooth;
 }
+
 /*NavBar*/
 
-.navbar{
+.navbar {
     background-color: #8093F1;
     width: 100%;
     position: fixed;
@@ -33,7 +34,7 @@ html {
     height: 140px;
 }
 
-.navbar__span{
+.navbar__span {
     display: flex;
     align-items: center;
     color: #000;
@@ -42,7 +43,7 @@ html {
     margin-left: 20px;
 }
 
-.navbar__contador{
+.navbar__contador {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,31 +55,31 @@ html {
     border-radius: 10px;
 }
 
-.navbar__saludo{
+.navbar__saludo {
     display: flex;
     align-items: center;
     font-size: 18px;
 }
 
-.navbar__container{
+.navbar__container {
     background-color: transparent;
     display: flex;
     justify-content: space-between;
 }
 
-.navbar__search{
+.navbar__search {
     background-color: #fff;
     margin: 20px;
     display: flex;
     border-radius: 30px;
 }
 
-.navbar__search:hover{
+.navbar__search:hover {
     background-color: #eee;
     cursor: pointer;
 }
 
-.navbar__searcher{
+.navbar__searcher {
     background: none;
     padding: 5px 20px;
     width: 300px;
@@ -88,51 +89,51 @@ html {
     padding: 5px 20px;
 }
 
-.navbar__lupa{
+.navbar__lupa {
     background: none;
     padding: 5px 20px;
     border: none;
     border-radius: 0 30px 30px 0;
 }
 
-.lupa__img{
+.lupa__img {
     height: 35px;
 }
 
-.navbar__icons{
+.navbar__icons {
     display: flex;
     margin-right: 20px;
 }
 
-.navbar__img{
+.navbar__img {
     height: 30px;
     margin: 10px 20px;
 }
 
-.navbar__categorias{
+.navbar__categorias {
     display: flex;
     margin: 0 10px;
 }
 
-.navbar__categoria{
+.navbar__categoria {
     display: flex;
     align-items: center;
     margin: 5px 8px;
 }
 
-.navbar__categoria a{
+.navbar__categoria a {
     color: #000;
     font-size: 20px;
     font-weight: 600;
 }
 
-.navbar__lupa:active, .navbar__a:active, .navbar__categoria{
+.navbar__lupa:active, .navbar__a:active, .navbar__categoria {
     transform: scale(0.95);
 }
 
 /*Productos*/
 
-.productos{
+.productos {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -143,11 +144,11 @@ html {
     min-height: 100vh;
 }
 
-.producto__body{
+.producto__body {
     width: 300px;
 }
 
-.productos__titulo{
+.productos__titulo {
     display: flex;
     justify-content: center;
     font-size: 40px;
@@ -159,7 +160,7 @@ html {
     padding: 20px 10px;
 }
 
-.productos__container{
+.productos__container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -167,7 +168,7 @@ html {
     gap: 15px;
 }
 
-.producto{
+.producto {
     background-color: rgb(255, 255, 255, 0.5);
     display: flex;
     align-items: stretch;
@@ -177,40 +178,40 @@ html {
     border-radius: 20px;
 }
 
-.producto__imgContainer{
+.producto__imgContainer {
     width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.producto__img{
+.producto__img {
     width: 100%;
     margin: 20px;
 }
 
-.producto__titulo{
+.producto__titulo {
     font-size: 30px;
     margin: 10px 0;
     width: 100%;
 }
 
-.producto__descripcion{
+.producto__descripcion {
     font-size: 20px;
     margin: 10px 0;
 }
 
-.producto__talles{
+.producto__talles {
     background: #72ddf7af;
     padding: 7px 3px;
     margin: 3px 7px;
 }
 
-.producto__talles option{
+.producto__talles option {
     background: #72ddf7af;
 }
 
-.producto__boton{
+.producto__boton {
     text-decoration: none;
     border: none;
     margin: 5px 0;
@@ -221,13 +222,13 @@ html {
     border-radius: 20px;
 }
 
-.producto__boton:active{
+.producto__boton:active {
     transform: scale(0.95);
 }
 
 /*precio*/
 
-.precio{
+.precio {
     display: flex;
     align-items: center;
     width: 100%;
@@ -237,17 +238,17 @@ html {
     margin-bottom: 10px;
 }
 
-.precio__text{
+.precio__text {
     font-size: 1.3rem;
 }
 
 /*carrito*/
 
-.carrito--hide{
+.carrito--hide {
     display: none;
 }
 
-.carrito{
+.carrito {
     display: flex;
     background-color: #fff;
     position: absolute;
@@ -277,16 +278,16 @@ html {
     }
 }
 
-.carrito::-webkit-scrollbar{
+.carrito::-webkit-scrollbar {
     width: 7px;
 }
 
-.carrito::-webkit-scrollbar-thumb{
+.carrito::-webkit-scrollbar-thumb {
     background-color: #B388EB;
     border-radius: 10px;
 }
 
-.carrito__span{
+.carrito__span {
     display: flex;
     align-items: center;
     font-size: 30px;
@@ -294,7 +295,7 @@ html {
     margin: 10px 0;
 }
 
-.carrito__container{
+.carrito__container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -302,7 +303,7 @@ html {
     gap: 10px;
 }
 
-.carrito__producto{
+.carrito__producto {
     display: flex;
     flex-direction: column;
     background-color: rgb(0, 0, 255, 0.1);
@@ -311,22 +312,22 @@ html {
     width: 200px;
 }
 
-.carrito__boton{
-    padding:  14px 20px;
+.carrito__boton {
+    padding: 14px 20px;
     border: none;
     background-color: rgb(0, 0, 255, 0.2);
     color: #000;
     border-radius: 20px;
-    margin: 10px ;
+    margin: 10px;
     font-weight: 1000;
     font-size: 1.2rem;
 }
 
-.carrito__boton:active{
+.carrito__boton:active {
     transform: scale(0.95);
 }
 
-.footer{
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -336,7 +337,7 @@ html {
     height: 100px;
 }
 
-.footer__container{
+.footer__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -344,12 +345,12 @@ html {
     width: 30%;
 }
 
-.footer__p{
+.footer__p {
     font-size: 20px;
     margin: 0 10px;
 }
 
-.footer__title{
+.footer__title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -359,18 +360,18 @@ html {
     margin: 0 10px;
 }
 
-.foooter__img{
+.foooter__img {
     width: 30px;
     height: 30px;
 }
 
-.foooter__a{
+.foooter__a {
     text-decoration: none;
     color: #000;
 }
 
 /*cursor*/
 
-.navbar__span:hover, .navbar__categoria a:hover, .navbar__img:hover, .producto__talles:hover, .producto__boton:hover, .carrito__boton:hover{
+.navbar__span:hover, .navbar__categoria a:hover, .navbar__img:hover, .producto__talles:hover, .producto__boton:hover, .carrito__boton:hover {
     cursor: pointer;
 }
