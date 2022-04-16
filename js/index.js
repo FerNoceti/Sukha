@@ -205,11 +205,9 @@ function cargarItems(tipo){
     }).then((res) =>{
         //verifico la obtención de los datos
         items = res.results
-        console.log(items)
     }).then(() => {
         //paso mis items al objeto producto
         convertirItems()
-        console.log(itemsConverted)
     }).then(() => {
         //cargo mis items en el html agregando sus eventos
         cargarProductosHTML();
