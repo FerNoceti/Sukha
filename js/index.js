@@ -51,8 +51,30 @@ function obtenerTalle(n){
 }
 
 function addItemCarrito(producto, talleP){
-    carrito.push({nombre: producto.nombre, descripcion: producto.descripcion, tipo: producto.tipo, precio: producto.precio, talle: talleP})
+    carrito.push({nombre: producto.nombre, descripcion: producto.descripcion, tipo: producto.tipo, precio: producto.precio, talle: talleP, cantidad: 1})
 }
+
+/*
+
+function actualizarCarrito(producto, talle){
+    for (const item of carrito){
+        if(item.id == producto.id && item.talle == talle){
+            item.cantidad++;
+            break;
+        }
+    }
+}
+
+function isInCart(producto){
+    for (const item of carrito){
+        if (item.id == producto.id && item.talle == producto.talle){
+            return true;
+        }
+    }
+    return false;
+}
+
+*/
 
 function calcularPrecio(){
     const total = carrito.reduce((precioTotal, producto) => precioTotal + producto.precio, 0);
@@ -74,7 +96,7 @@ if (cart.classList == "carrito--hide"){
 }
 else{
     cart.classList.remove("carrito");
-    cart.classList.add("carrito--hide");    
+    cart.classList.add("carrito--hide");
 }
 });
 
@@ -107,34 +129,40 @@ function limpiarCarritoHTML(){
 
 function cargarProductosHTML(){
     const containerProductos = document.getElementById("productosContainer");
+
     let idCompra = 0;
-    for (const producto of productosEnVenta){
+    for (const producto of itemsConverted){
         let productoHTML = document.createElement("div");
         productoHTML.className = "producto";
         productoHTML.innerHTML = `
-        <img class="producto__img" src="./media/productos/${producto.nombre}.png" alt="${producto.img}">
-            <div class="producto__body">
-                <span class="producto__titulo">${producto.nombre}</span>
-                <p class="producto__descripcion">
-                Precio: $${producto.precio}
-                <br/>
-                ${producto.descripcion}
-                <br/>
-                <select id="talleProducto${idCompra}" class="producto__talles" name="talles" required>
-                    <option selected hidden>Elegí tu talle</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                </select>
-                </p>
+        <div class="producto__imgContainer">
+            <img class="producto__img" src="${producto.imagen}" alt="${producto.nombre}">
+        </div>
+        <div class="producto__body">
+            <span class="producto__titulo">${producto.nombre}</span>
+            <p class="producto__descripcion">
+            Precio: $${producto.precio}
+            <br/>
+            <select id="talleProducto${idCompra}" class="producto__talles" name="talles" required>
+                <option selected hidden>Elegí tu talle</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select>
+            </p>
 
-                <button id="comprar${idCompra}" class="producto__boton">Agregar al carrito</button>
-            </div>
+            <button id="comprar${idCompra}" class="producto__boton">Agregar al carrito</button>
+        </div>
         `;
         containerProductos.appendChild(productoHTML);
         idCompra++;
     }
+}
+
+function limpiarProductosHTML(){
+    const containerProductos = document.getElementById("productosContainer");
+    containerProductos.innerHTML = ""
 }
 
 function cambiarPrecioHTML(){
@@ -145,13 +173,13 @@ function cambiarPrecioHTML(){
 //Events
 
 function agregarEventosProductosHTML(){
-for (let i = 0; i < productosEnVenta.length; i++){
+for (let i = 0; i < itemsConverted.length; i++){
     document.getElementById(`comprar${i}`).addEventListener("click", ()=> {
     if (obtenerTalle(i)){
-        addItemCarrito(productosEnVenta[i], obtenerTalle(i));
+        addItemCarrito(itemsConverted[i], obtenerTalle(i));
         contadorCarritoHTML()
         cambiarPrecioHTML();
-        agregarCarritoHTML(productosEnVenta[i], obtenerTalle(i));
+        agregarCarritoHTML(itemsConverted[i], obtenerTalle(i));
         guardarCarritoLS();
         mensaje("Producto agregado")
     }
@@ -161,10 +189,42 @@ for (let i = 0; i < productosEnVenta.length; i++){
             text: 'Debes elegir un talle!',
             icon: 'error',
             confirmButtonText: 'Entendido'
-          })
+})
     }
     });
 }
+}
+
+//fetch
+
+function cargarItems(tipo){
+    //pido los datos a la API de mercado libre
+    fetch('https://api.mercadolibre.com/sites/MLA/search?q=' + tipo)
+    .then(res => {
+        return res.json()
+    }).then((res) =>{
+        //verifico la obtención de los datos
+        items = res.results
+    }).then(() => {
+        //paso mis items al objeto producto
+        convertirItems()
+    }).then(() => {
+        //cargo mis items en el html agregando sus eventos
+        cargarProductosHTML();
+        agregarEventosProductosHTML();
+        const searchTitle = document.getElementById("productosTitulo")
+        if (items.length == 0){
+            searchTitle.textContent = "No hay resultados"
+        }
+        window.scroll(0, 0);
+    })
+}
+
+function convertirItems(){
+    items.forEach((item)=>{
+        let producto = new Producto (item.id, item.title, item.price, item.thumbnail)
+        itemsConverted.push(producto)
+    })
 }
 
 //limpiar carrito
@@ -179,23 +239,11 @@ botonLimpiarCarrito.addEventListener("click", ()=>{
     mensaje("Se eliminaron los productos de su carro")
 })
 
-//Creamos productos y los agregamos a una lista
-let remeraRoja = new Producto(`Remera Roja`, `Remera Roja de algodón`, 1, 1000);
-let remeraNegra = new Producto(`Remera Negra`, `Remera Negra de tela deportiva`, 1, 950);
-let buzoLiso = new Producto(`Buzo Simple`, `Buzo sin estampado 100% algodón`, 2, 650, 30);
-let shortAdidas = new Producto(`Short Adidas`, `Short de la selección Argentina`, 3, 599);
-let pantalonDeportivo = new Producto(`Pantalon Nike`, `Pantalon Nike de tela deportiva`, 4, 750);
-let zapatillas = new Producto(`Zapatillas Jordan`, `Zapatillas edición coleccionista Jordan`, 5, 7590);
+//Obtenemos los items de la API de mercado librec para luego convertirlos
+let items = []
+let itemsConverted = []
 
-let productosEnVenta = [remeraRoja, remeraNegra, buzoLiso, shortAdidas, pantalonDeportivo, zapatillas];
-
-//Cargamos los productos en el html
-
-cargarProductosHTML();
-
-//Agregamos los eventos en productos
-
-agregarEventosProductosHTML();
+cargarItems("moda")
 
 //Comprar
 
@@ -206,38 +254,82 @@ botonComprar.addEventListener("click", () =>{
             icon: 'error',
             title: 'Oops...',
             text: 'No agregaste nada al carrito!',
-          })
+})
     }
     else{
         Swal.fire(
             'Compra Exitosa!',
             'Gracias por confiar en nosotros!',
             'success'
-          );
-          limpiarCarritoHTML();
-          carrito = [];
-          cambiarPrecioHTML();
-          document.getElementById("contadorCarrito").textContent = 0;
-          guardarCarritoLS();
+        );
+        limpiarCarritoHTML();
+        carrito = [];
+        cambiarPrecioHTML();
+        document.getElementById("contadorCarrito").textContent = 0;
+        guardarCarritoLS();
+        window.scroll(0, 0);
+        filtrarItems("moda")
     }
 })
 
-  function mensaje(texto){
+function mensaje(texto){
     Toastify({
         text: texto,
         className: "info",
         duration: 2000,
         stopOnFocus: true,
         style: {
-          background: "#B388EB",
-          color: "black",
-          marginRight: "150px",
-          marginTop: "70px",
-          padding: "10px 20px",
-          borderRadius: "20px"
+            background: "#B388EB",
+            color: "black",
+            marginRight: "150px",
+            marginTop: "70px",
+            padding: "10px 20px",
+            borderRadius: "20px"
         }
-      }).showToast();
-  }
+        }).showToast();
+}
 
 
-//Filtrar por tipos y buscador a terminar
+//Filtrar por tipos
+
+function filtrarItems(type){
+    itemsConverted = []
+    limpiarProductosHTML()
+    cargarItems(type)
+    const searchTitle = document.getElementById("productosTitulo")
+    searchTitle.textContent = type.toUpperCase()
+    window.scroll(0,0)
+}
+
+const inicio = document.getElementById("inicio");
+inicio.addEventListener("click", () =>{filtrarItems("moda")})
+const remeras = document.getElementById("remeras")
+remeras.addEventListener("click", () => filtrarItems("remeras"))
+const buzos = document.getElementById("buzos")
+buzos.addEventListener("click", () => filtrarItems("buzos"))
+const shorts = document.getElementById("shorts")
+shorts.addEventListener("click", () => filtrarItems("shorts"))
+const pantalones = document.getElementById("pantalones")
+pantalones.addEventListener("click", () => filtrarItems("pantalones"))
+const zapatillas = document.getElementById("zapatillas")
+zapatillas.addEventListener("click", () => filtrarItems("zapatillas"))
+
+//search
+
+const search = document.getElementById("search")
+const lupa = document.getElementById("lupa")
+
+lupa.addEventListener("click", () => buscarPorTexto())
+
+function buscarPorTexto(){
+    if(search.value.length < 3){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Debes ingresar al menos 3 letras para buscar!',
+        })
+    }
+    else{
+        filtrarItems(search.value)
+    }
+}
