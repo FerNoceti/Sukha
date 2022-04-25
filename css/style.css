@@ -375,3 +375,139 @@ html {
 .navbar__span:hover, .navbar__categoria a:hover, .navbar__img:hover, .producto__talles:hover, .producto__boton:hover, .carrito__boton:hover {
     cursor: pointer;
 }
+
+/*responsive*/
+
+@media only screen and (max-width: 600px) {
+
+    /*NavBar*/
+
+    .navbar {
+        height: 270px;
+    }
+
+    .navbar__span {
+        font-size: 30px;
+        margin: 20px;
+    }
+
+    .navbar__saludo {
+        font-size: 16px;
+    }
+
+    .navbar__container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar__search {
+        width: 90%;
+        padding: 0 10px;
+        margin: auto;
+    }
+
+    .navbar__searcher {
+        padding: 0;
+        width: 80%;
+        border: none;
+        border-radius: 30px 0 0 30px;
+        padding: 0;
+    }
+
+    .navbar__categorias {
+        flex-wrap: wrap;
+        margin: 10px;
+    }
+
+    .navbar__categoria a {
+        font-size: 16px;
+
+    }
+
+    /*Productos*/
+
+    .productos {
+        margin: 270px 0 0 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .producto__body {
+        width: 300px;
+    }
+
+    .productos__titulo {
+        text-align: center;
+        width: 80%;
+    }
+
+    .producto {
+        width: 80%;
+        height: fit-content;
+    }
+
+    .producto__imgContainer {
+        width: 100%;
+    }
+
+    .producto__titulo {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .producto__boton {
+        font-size: 17px;
+    }
+
+    /*precio*/
+
+    .precio {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 200px;
+        justify-content: center;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .precio__text {
+        font-size: 1.3rem;
+    }
+
+    /*carrito*/
+
+    .carrito--hide {
+        display: none;
+    }
+
+    .carrito {
+        right: 20px;
+        top: 250px;
+        width: 90%;
+        min-height: 500px;
+    }
+
+    @keyframes slidein {
+        from {
+            margin-right: 200px;
+        }
+
+        to {
+            margin-right: 0;
+        }
+    }
+
+    .footer {
+        height: fit-content;
+        gap: 20px;
+    }
+
+    .footer__container {
+        width: 100%;
+        margin: 20px;
+    }
+
+}
